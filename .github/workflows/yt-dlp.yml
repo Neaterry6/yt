@@ -24,4 +24,5 @@ jobs:
 
       - name: Run yt-dlp search
         run: |
+          echo "Searching for: ${{ github.event.inputs.query }}"
           yt-dlp "ytsearch1:${{ github.event.inputs.query }}" --print "%(title)s - %(id)s"
