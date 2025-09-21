@@ -1,11 +1,9 @@
 FROM node:18
 
-# Install system dependencies
+# Install Python and yt-dlp safely
 RUN apt-get update && \
-    apt-get install -y curl gnupg software-properties-common && \
-    curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
-    apt-get install -y python3 && \
-    pip3 install yt-dlp
+    apt-get install -y python3 python3-pip && \
+    python3 -m pip install --break-system-packages yt-dlp
 
 # Set working directory
 WORKDIR /app
