@@ -1,0 +1,28 @@
+name: yt-dlp fetch
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: 'YouTube search query'
+        required: true
+        default: 'baby girl by joeboy'
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Python and yt-dlp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip
+          python3 -m pip install --break-system-packages yt-dlp
+
+      - name: Run yt-dlp search
+        run: |
+          echo "Searching for: ${{ github.event.inputs.query }}"
+          yt-dlp "ytsearch1:${{ github.event.inputs.query }}" --print "%(title)s - %(id)s"
